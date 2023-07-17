@@ -1,0 +1,19 @@
+body {
+    background-color:grey;
+    border: solid lightsteelblue;
+}
+
+h1 {
+    color:rgb(180, 195, 215);
+    text-align: center;
+}
+
+.card {
+    width: 500px;
+    background-color:rgb(168, 139, 133);
+    text-align: center;
+}
+
+#dish-name {
+    color: white;
+}
