@@ -25,13 +25,12 @@ body {
     border-radius: 10px;
     transition: all 0.5s;
     border: 2px solid darkkhaki;
-    animation: myTransition 0.5s;
+    animation: myTransition 1s;
 }
 
 @keyframes myTransition {
     from {
-        width: 0px;
-        height: 0px;
+        opacity: 0;
     }
 }
 
