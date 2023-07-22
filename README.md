@@ -1,6 +1,6 @@
 This is a personal repo for
  <br> 
- <strong> Adam Hassan Alattar (آدم حسن العطار)</strong>
+ <strong> Adam Hassan Alattar (آدم حسن العطار)</strong> <br>
  for the Year 2023, Kuwait Codes
  <br>
  <hr>
