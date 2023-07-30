@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=REM:wght@200;300&display=swap" rel="stylesheet">
+</head>
+<body onload="loadCells()">
+    <p class="title">Welcome To My Tic Tac Toe Game! (X-O)</p>
+    <div id="player-display">
+        Player <span class="player-X">X</span>'s turn
+    </div>
+
+    <div class="game-container">
+        <div class="player-disp-X" id="player-disp-X"></div>
+
+        <div class="board-container" id="board">
+            <!-- All Cells will be added through JS! -->
+        </div>
+
+        <div class="player-disp-O" id="player-disp-O"></div>
+    </div>
+
+    <button class="reset-button" type="button" onclick="window.location.reload()">Reset</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
