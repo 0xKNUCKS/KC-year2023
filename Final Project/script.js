@@ -218,7 +218,7 @@ function updateBoard(cellIndex)
 // the Action function called when played/clicked on a cell
 function playAction(cellIndex)
 {
-    if (isCellAvalible(cellIndex) && Winner != null)
+    if (isCellAvalible(cellIndex) && Winner == null)
     {
         updateCell(cellIndex)
         updateBoard(cellIndex)
