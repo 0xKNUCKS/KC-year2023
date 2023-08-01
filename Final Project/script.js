@@ -2,7 +2,7 @@
 let boardTable = new Array(9).fill(null)
 let currentPlayer = 0; // 0 for X, 1 for O
 let numOfMoves = 0
-let Winner = -1
+let Winner = null
 
 // Calculates the wanted Row Index
 function getRowIndex(row)
@@ -11,19 +11,51 @@ function getRowIndex(row)
 }
 
 // Calculates the wanted Column Index in a row
-function getColIndex(rowIndex, col)
+function getColIndex(col)
 {
-    return rowIndex + col
+    return col
 }
 
 // Calculates the Cell Index based on the row and col values
 function getCellIndex(row, col) {
-    return getColIndex(getRowIndex(row), col)
+    return getRowIndex(row) + getColIndex(col)
+}
+
+// Print a certian row
+function print_row(i)
+{
+    let color
+    if (i == 0) {color = "color: purple"}
+    else if (i == 1) {color = "color: orange"}
+    else if (i == 2) {color = "color: green"}
+
+    console.log(`%c\n
+    (${i}, 0) == ${getPlayerTag(boardTable[getCellIndex(i, 0)])}
+    (${i}, 1) == ${getPlayerTag(boardTable[getCellIndex(i, 1)])}
+    (${i}, 2) == ${getPlayerTag(boardTable[getCellIndex(i, 2)])}\n`, color);
+}
+
+// Print a certian column
+function print_col(i)
+{
+    let color
+    if (i == 0) {color = "color: blue"}
+    else if (i == 1) {color = "color: darkgreen"}
+    else if (i == 2) {color = "color: green"}
+
+    console.log(`%c\n
+    (0, ${i}) == ${getPlayerTag(boardTable[getCellIndex(0, i)])}
+    (1, ${i}) == ${getPlayerTag(boardTable[getCellIndex(1, i)])}
+    (2, ${i}) == ${getPlayerTag(boardTable[getCellIndex(2, i)])}\n`, color);
 }
 
 // get player's tag (X or O), which will be used *Multiple* times bellow
 function getPlayerTag(playerNumber)
 {
+    if (playerNumber == null) {
+        return "null"
+    }
+
     return playerNumber ? "O" : "X"
 }
 
@@ -72,13 +104,13 @@ function updateStyle(cellIndex)
     let cellDiv = document.getElementById(`cell-${cellIndex}`)
     let wantedColor;
 
-    if (isCellAvalible(cellIndex) || Winner != -1) {
-        console.log("True!!");
+    if (isCellAvalible(cellIndex)) {
+        //console.log("True!!");
         wantedColor = getPlayerColor(currentPlayer)
         cellDiv.style.setProperty("--scaleSize", "1.05")
     }
     else {
-        console.log("False!!");
+        //console.log("False!!");
         wantedColor = "none"
         cellDiv.style.setProperty("--scaleSize", "1.0")
     }
@@ -86,8 +118,8 @@ function updateStyle(cellIndex)
     CellsDivs = document.getElementsByClassName("cell")
     for (let i = 0; i < CellsDivs.length; i++)
     {
-        CellsDivs[i].style.setProperty("--hoverColor", Winner != -1 ? getPlayerColor(Winner) : wantedColor)
-        CellsDivs[i].style.setProperty("--bgColor", Winner != -1 ? getPlayerColor(Winner) : wantedColor)
+        CellsDivs[i].style.setProperty("--hoverColor", wantedColor)
+        CellsDivs[i].style.setProperty("--bgColor", wantedColor)
     }
 }
 
@@ -95,23 +127,89 @@ function updateStyle(cellIndex)
 function updateBoard(cellIndex)
 {
     if (numOfMoves == 9) {
-        Winner = 0
+        Winner = 3
         return
     }
     else {
-        for (let col = 0; col <= 2; col++) {
-            for (let row = 1; row <= 2; row++)
+        for (let i = 0; i <= 2; i++)
+        {
+            // Check if the whole row is not empty
+            if (boardTable[getCellIndex(i, 0)] != null &&
+                boardTable[getCellIndex(i, 1)] != null &&
+                boardTable[getCellIndex(i, 2)] != null)
             {
-                let currCellIndex = getCellIndex(row, col)
-                let prevCellIndex = getCellIndex(row - 1, col)
-                if (boardTable[currCellIndex] == null || boardTable[getCellIndex(row, 0)] == null) {
-                    return
-                }
 
-                if (boardTable[prevCellIndex] == boardTable[currCellIndex]) {
-                    Winner = currentPlayer
-                    return
+                //console.log(`Row ${i} is not full\n`)
+                //print_row(i)
+
+                // Check if the whole row was played by one player
+                if (boardTable[getCellIndex(i, 0)] == boardTable[getCellIndex(i, 1)]
+                && boardTable[getCellIndex(i, 0)] == boardTable[getCellIndex(i, 2)])
+                {
+                   Winner = boardTable[getCellIndex(i, 0)]
+                   console.log(`Row ${i} Got a Winner! currentPlayer=${getPlayerTag(currentPlayer)}, table player=${getPlayerTag(boardTable[getCellIndex(i, 0)])}`);
+                   return
                 }
+            }
+
+            // Check if the whole column is full
+            if (boardTable[getCellIndex(0, i)] != null &&
+                boardTable[getCellIndex(1, i)] != null &&
+                boardTable[getCellIndex(2, i)] != null)
+            {
+
+                // console.log(`Col ${i} is NOT full!`);
+                // print_col(i)
+
+                // Check if the whole column was played by one player
+                if (boardTable[getCellIndex(0, i)] == boardTable[getCellIndex(1, i)]
+                && boardTable[getCellIndex(0, i)] == boardTable[getCellIndex(2, i)])
+                {
+                   Winner = boardTable[getCellIndex(0, i)]
+                   console.log(`Col ${i} Got a Winner! currentPlayer=${getPlayerTag(currentPlayer)}, table player=${getPlayerTag(boardTable[getCellIndex(0, i)])}`);
+                   return
+                }
+            }
+        }
+
+        // table:
+        // 1 - -
+        // - 1 -
+        // - - 1
+        // Check if diagonal cells was full
+        if (boardTable[getCellIndex(0, 0)] != null &&
+            boardTable[getCellIndex(1, 1)] != null &&
+            boardTable[getCellIndex(2, 2)] != null)
+        {
+            console.log(`Diagonal Cells Full!`);
+            // Check if the diagonal cells was played by one player
+            if (boardTable[getCellIndex(0, 0)] == boardTable[getCellIndex(1, 1)]
+            &&  boardTable[getCellIndex(0, 0)] == boardTable[getCellIndex(2, 2)])
+            {
+                Winner = boardTable[getCellIndex(0, 0)]
+                console.log(`Normal Diag got a winner! currentPlayer=${currentPlayer} table player=${boardTable[getCellIndex(0, 0)]}`);
+                return
+            }
+        }
+        else {
+            console.log(`Diagonal Cells NOT Full!`);
+        }
+
+        // table:
+        // - - 1
+        // - 1 -
+        // 1 - -
+        // Check if reverse diagonal was full
+        if (boardTable[getCellIndex(2, 0)] != null &&
+            boardTable[getCellIndex(1, 1)] != null &&
+            boardTable[getCellIndex(0, 2)] != null)
+        {
+            if (boardTable[getCellIndex(2, 0)] == boardTable[getCellIndex(1, 1)] &&
+                boardTable[getCellIndex(2, 0)] == boardTable[getCellIndex(0, 2)])
+            {
+                Winner = boardTable[getCellIndex(2, 0)]
+                console.log(`Reverse Diag got a winner! currentPlayer=${currentPlayer} table player=${boardTable[getCellIndex(0, 0)]}`);
+                return
             }
         }
     }
@@ -120,14 +218,17 @@ function updateBoard(cellIndex)
 // the Action function called when played/clicked on a cell
 function playAction(cellIndex)
 {
-    if (isCellAvalible(cellIndex))
+    if (isCellAvalible(cellIndex) && Winner != null)
     {
         updateCell(cellIndex)
-        //updateBoard(cellIndex)
+        updateBoard(cellIndex)
         switchPlayer()
-        updateDisplay()
-        updateStyle(cellIndex)
     }
+
+    updateDisplay()
+    updateStyle(cellIndex)
+
+    document.getElementById("test").innerText = "Winner: " + getPlayerTag(Winner)
 }
 
 function loadCells() {
