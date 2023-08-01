@@ -87,15 +87,29 @@ function updateCell(cellIndex)
     cellDiv.innerHTML = `<span class="cell-tag-${playerTag} player-${playerTag}">${playerTag}</span>`
 }
 
-// Changes the display of which player turn it is
+// Changes the display of which player turn it is, or if theres a winner
 function updateDisplay()
 {
     let playerTag = getPlayerTag(currentPlayer)
     let oppPlayerTag = getPlayerTag(!currentPlayer)
-    document.getElementById("player-display").innerHTML = `Player <span class="player-${playerTag}">${playerTag}</span>'s turn`
+    let winnerPlayerTag = getPlayerTag(Winner)
+    document.getElementById("player-display").innerHTML = Winner == null ?
+     `Player <span class="player-${playerTag}">${playerTag}</span>'s turn` :
+     `Player <span class="player-${winnerPlayerTag}">${winnerPlayerTag}</span> Has Won!`
 
-    document.getElementById(`player-disp-${playerTag}`).style.setProperty("--displayOpacity", 1);
-    document.getElementById(`player-disp-${oppPlayerTag}`).style.setProperty("--displayOpacity", 0);
+    if (Winner != null) {
+        document.getElementById(`win-container`).style.display = "flex"
+        document.getElementById(`win-container`).style.setProperty("--displayOpacity", 1)
+
+        document.getElementById(`winner-disp`).style.display = "flex"
+        document.getElementById(`winner-disp`).style.setProperty("--displayOpacity", 1)
+        document.getElementById(`winner-disp`).style.setProperty("--shadowColor", getPlayerColor(Winner))
+
+        document.getElementById(`winner-display-text`).innerHTML = `Player <span class="player-${winnerPlayerTag} winner-display-text">${winnerPlayerTag}</span> Has Won!`
+    } else {
+        document.getElementById(`player-disp-${playerTag}`).style.setProperty("--displayOpacity", Winner == null ? 1 : 0);
+        document.getElementById(`player-disp-${oppPlayerTag}`).style.setProperty("--displayOpacity", 0);
+    }
 }
 
 // Updates the styles for everything in the page
@@ -124,7 +138,7 @@ function updateStyle(cellIndex)
 }
 
 // Update Board Status
-function updateBoard(cellIndex)
+function updateBoard()
 {
     if (numOfMoves == 9) {
         Winner = 3
@@ -221,7 +235,7 @@ function playAction(cellIndex)
     if (isCellAvalible(cellIndex) && Winner == null)
     {
         updateCell(cellIndex)
-        updateBoard(cellIndex)
+        updateBoard()
         switchPlayer()
     }
 
@@ -231,15 +245,24 @@ function playAction(cellIndex)
     document.getElementById("test").innerText = "Winner: " + getPlayerTag(Winner)
 }
 
+function resetCells() {
+    boardTable.fill(null)
+    currentPlayer = !currentPlayer
+    Winner = null
+    numOfMoves = 0
+    loadCells()
+    updateDisplay()
+}
+
 function loadCells() {
     let boardDiv = document.getElementById("board")
+    boardDiv.innerHTML = ""
 
     for (let row = 0; row < 3; row++) {
         for (let col = 0; col < 3; col++)
         {
             let cellIndex = getCellIndex(row, col)
-            let divHTML = boardDiv.innerHTML;
-            boardDiv.innerHTML = divHTML + `<div class="cell" id="cell-${cellIndex}" onclick="playAction(${cellIndex})" onmouseover="updateStyle(${cellIndex})"></div>\n`
+            boardDiv.innerHTML += `<div class="cell" id="cell-${cellIndex}" onclick="playAction(${cellIndex})" onmouseover="updateStyle(${cellIndex})"></div>\n`
             console.log(`Added Cell (${row}, ${col})`)
         }
     }

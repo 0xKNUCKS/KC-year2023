@@ -25,7 +25,13 @@
         <div class="player-disp-O" id="player-disp-O"></div>
     </div>
 
-    <button class="reset-button" type="button" onclick="window.location.reload()">Reset</button>
+    <div class="win-container" id="win-container">
+        <div class="winner-display" id="winner-disp">
+            <p class="winner-display-text" id="winner-display-text">Winner!</p>
+        </div>
+    </div>
+
+    <button class="reset-button" type="button" onclick="resetCells()">Reset</button>
     <p id="test">Test</p>
 
     <script src="script.js"></script>

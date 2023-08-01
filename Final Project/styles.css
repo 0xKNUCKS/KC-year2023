@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     font-family: 'REM', sans-serif;
+    font-size: large;
 }
 
 body {
@@ -99,6 +100,7 @@ body {
     margin: 2px;
     transition: all 0.5s;
     border: 2px solid black; /*darkkhaki*/
+    border-radius: 5px;
     --hoverColor: #00e673;
     --scaleSize: 1.05;
     --bgColor: #00e673;
@@ -147,4 +149,42 @@ body {
     background-color: #e60073;
     border-style: solid;
     box-shadow: 0px 0px 15px #e60073;
+}
+
+.winner-display
+{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    --displayOpacity: 0;
+    opacity: var(--displayOpacity);
+    background-color: #e0edf6;
+    border-style: solid;
+    border-radius: 10px;
+    --shadowColor: #ffffff;
+    box-shadow: 0px 0px 100px var(--shadowColor);
+    width: 50vh;
+    height: 60vh;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    transition: all 0.5s;
+}
+
+.winner-display-text
+{
+    font-size: xx-large;
+}
+
+.win-container
+{
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.75);
+    --displayOpacity: 0;
+    opacity: var(--displayOpacity);
 }
