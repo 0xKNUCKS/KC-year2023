@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=REM:wght@200;300&display=swap" rel="stylesheet">
 </head>
 <body onload="loadCells()">
+
     <p class="title">Welcome To My Tic Tac Toe Game! (X-O)</p>
     <div id="player-display">
         Player <span class="player-X">X</span>'s turn
@@ -25,14 +26,15 @@
         <div class="player-disp-O" id="player-disp-O"></div>
     </div>
 
+    <button class="reset-button" type="button" onclick="resetCells()">Reset</button>
+
     <div class="win-container" id="win-container">
         <div class="winner-display" id="winner-disp">
-            <p class="winner-display-text" id="winner-display-text">Winner!</p>
+            <p style="font-size: xx-large;">Winner!</p>
+            <div class="win-player-display" id="win-player-disp"></div>
+            <button type="button" class="replay-button" id="replay-button" onclick="window.location.reload()">Replay</button>
         </div>
     </div>
-
-    <button class="reset-button" type="button" onclick="resetCells()">Reset</button>
-    <p id="test">Test</p>
 
     <script src="script.js"></script>
 </body>

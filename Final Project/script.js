@@ -98,17 +98,18 @@ function updateDisplay()
      `Player <span class="player-${winnerPlayerTag}">${winnerPlayerTag}</span> Has Won!`
 
     if (Winner != null) {
-        document.getElementById(`win-container`).style.display = "flex"
-        document.getElementById(`win-container`).style.setProperty("--displayOpacity", 1)
+        document.getElementById(`win-container`).classList.add("show-disp")
 
-        document.getElementById(`winner-disp`).style.display = "flex"
-        document.getElementById(`winner-disp`).style.setProperty("--displayOpacity", 1)
+        document.getElementById(`winner-disp`).classList.add("show-disp")
         document.getElementById(`winner-disp`).style.setProperty("--shadowColor", getPlayerColor(Winner))
 
-        document.getElementById(`winner-display-text`).innerHTML = `Player <span class="player-${winnerPlayerTag} winner-display-text">${winnerPlayerTag}</span> Has Won!`
+        document.getElementById(`win-player-disp`).innerHTML = `<span class="player-${winnerPlayerTag} cell-tag-${winnerPlayerTag}" style="font-size: 25vh;">${winnerPlayerTag}</span>`
+
+        document.getElementById(`replay-button`).style.setProperty("--WantedColor", getPlayerColor(Winner))
+        document.getElementById(`replay-button`).style.backgroundColor = Winner ? "#f6e0e0" : "#e2f6e0"
     } else {
-        document.getElementById(`player-disp-${playerTag}`).style.setProperty("--displayOpacity", Winner == null ? 1 : 0);
-        document.getElementById(`player-disp-${oppPlayerTag}`).style.setProperty("--displayOpacity", 0);
+        document.getElementById(`player-disp-${playerTag}`).style.opacity = Winner == null ? 1 : 0
+        document.getElementById(`player-disp-${oppPlayerTag}`).style.opacity = 0
     }
 }
 

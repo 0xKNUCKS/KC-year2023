@@ -52,8 +52,7 @@ body {
     left: 0;
     height: 100vh;
     width: 25vw;
-    --displayOpacity: 1;
-    opacity: var(--displayOpacity);
+    opacity: 1;
     background: linear-gradient(to right, #00e673, #0000);
     box-shadow: -20px 0 40px -20px rgba(255, 255, 255, 1); /* Adjust the shadow properties as needed */
     transition: all 0.5s;
@@ -68,8 +67,7 @@ body {
     right: 0;
     height: 100vh;
     width: 25vw;
-    --displayOpacity: 0;
-    opacity: var(--displayOpacity);
+    opacity: 0;
     background: linear-gradient(to right, #0000 , #e60073);
     box-shadow: 20px 0 40px -20px rgba(255, 255, 255, 0.5); /* Adjust the shadow properties as needed */
     transition: all 0.5s;
@@ -151,13 +149,25 @@ body {
     box-shadow: 0px 0px 15px #e60073;
 }
 
+.win-container
+{
+    display: none;
+    opacity: 0;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
 .winner-display
 {
     display: none;
+    opacity: 0;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    --displayOpacity: 0;
-    opacity: var(--displayOpacity);
     background-color: #e0edf6;
     border-style: solid;
     border-radius: 10px;
@@ -172,19 +182,43 @@ body {
     transition: all 0.5s;
 }
 
-.winner-display-text
+.show-disp
 {
-    font-size: xx-large;
+    display: flex;
+    opacity: 1;
+    animation: showAnimation 0.75s;
 }
 
-.win-container
+@keyframes showAnimation {
+    from {
+        opacity: 0;
+    }
+}
+
+.win-player-display
 {
-    display: none;
-    width: 100%;
-    height: 100%;
-    top: 0;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.75);
-    --displayOpacity: 0;
-    opacity: var(--displayOpacity);
+}
+
+.replay-button {
+    width: 150px;
+    height: 50px;
+    margin-top: 40vh;
+    font-size: large;
+    background-color: #e2f6e0;
+    --WantedColor: #ffff;
+    border-color: var(--WantedColor);
+    border-style: dashed;
+    color: var(--WantedColor);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.replay-button:hover {
+    text-shadow: 0px 0px 15px var(--WantedColor);
+    border-style: solid;
+    box-shadow: 0px 0px 25px var(--WantedColor);
 }
