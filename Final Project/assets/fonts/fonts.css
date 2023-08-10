@@ -1,0 +1,5 @@
+@font-face {
+    font-family: 'pixels-font'; /* You can give any name to your custom font */
+    src: url("Pixels.ttf") format('truetype'); /* Replace 'path/to/your/font/font-file.ttf' with the correct path to your font file */
+}
+  
