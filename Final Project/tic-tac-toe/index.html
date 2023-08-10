@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/favico.png" type="image/x-icon">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=REM:wght@200;300&display=swap" rel="stylesheet">
+</head>
+<body onload="loadCells()">
+
+    <p class="title">Welcome To My Tic Tac Toe Game! (X-O)</p>
+    <div id="player-display">
+        Player <span class="player-X">X</span>'s turn
+    </div>
+
+    <div class="game-container">
+        <div class="player-disp-X" id="player-disp-X"></div>
+
+        <div class="board-container" id="board">
+            <!-- All Cells will be added through JS! -->
+        </div>
+
+        <div class="player-disp-O" id="player-disp-O"></div>
+    </div>
+
+    <button class="reset-button" type="button" onclick="resetCells()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
+          </svg>          
+        Reset
+    </button>
+    <button class="home-button" type="button" onclick="visit(`../index.html`)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+            <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+          </svg>          
+        Home
+    </button>
+
+    <div class="win-container" id="win-container">
+        <div class="winner-display" id="winner-disp">
+            <p style="font-size: xx-large;">Winner!</p>
+            <div class="win-player-display" id="win-player-disp"></div>
+            <button type="button" class="replay-button" id="replay-button" onclick="window.location.reload()">Replay</button>
+        </div>
+
+        <div class="tie-display" id="tie-disp">
+            <p style="font-size: xx-large;">Tie!</p>
+            <button type="button" class="replay-button-tie" id="replay-button-tie" onclick="window.location.reload()">Replay</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
