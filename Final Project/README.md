@@ -1,0 +1,2 @@
+Using diffrent screen resolutions may mess up the sizes of the stuff on the website, if that ever happens please minimize using 'Ctrl + -' <br>
+Everything was tested on a 1440p monitor so it is pretty big, and probably using a smaller or a diffrent resolution could mess it all up. i really hope it dosent
