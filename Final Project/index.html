@@ -3,39 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Title -->
+    <title>ArcadeHub</title>
+    <!-- Icon -->
+    <link rel="shortcut icon" href="assets/favico.png" type="image/x-icon">
+    <!-- BootStrap Style -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- My Style -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=REM:wght@200;300&display=swap" rel="stylesheet">
 </head>
-<body onload="loadCells()">
-
-    <p class="title">Welcome To My Tic Tac Toe Game! (X-O)</p>
-    <div id="player-display">
-        Player <span class="player-X">X</span>'s turn
-    </div>
-
-    <div class="game-container">
-        <div class="player-disp-X" id="player-disp-X"></div>
-
-        <div class="board-container" id="board">
-            <!-- All Cells will be added through JS! -->
+<body onload="loadGames()">
+    <!-- Nav Bar (without any navigation LOL) -->
+    <nav class="navbar navbar-container">
+        <div class="navbar-brand">
+            <a href="#" class="main-navbrand">
+                <div class="main-logo">
+                    <img src="assets/favico.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                </div>
+            </a>
+            <a class="main-title" href="#">ArcadeHub<span class="small-title">Kuwait Code's Final Project</span></a>
         </div>
 
-        <div class="player-disp-O" id="player-disp-O"></div>
+        <div class="KC-logo">
+            <img src="assets/kuwait_codes.svg" alt="KUWAIT CODES LOGO">
+        </div>
+    </nav>
+
+    <div class="tabs-container">
+        <button class="select-tab tab" id="all-games-tab" onclick="selectTab(0)">
+            All Games
+        </button>
+        <button class="tab" id="favorites-tab" onclick="selectTab(1)">
+            Favorite Games
+        </button>
     </div>
 
-    <button class="reset-button" type="button" onclick="resetCells()">Reset</button>
+    <!-- Games container -->
+    <div class="games-container" id="games-container">
+        <!-- All games will be added and handeled through JS! -->
+    </div>
 
-    <div class="win-container" id="win-container">
-        <div class="winner-display" id="winner-disp">
-            <p style="font-size: xx-large;">Winner!</p>
-            <div class="win-player-display" id="win-player-disp"></div>
-            <button type="button" class="replay-button" id="replay-button" onclick="window.location.reload()">Replay</button>
+    <!-- Submit a new game to the hub!-->
+    <div class="add-new-game-container">
+        <button type="button" class="add-new-game-button" onclick='openSubmitPopUp()'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="2vh">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+
+            Submit Game
+        </button>
+    </div>
+
+    <!-- Submit a game form -->
+    <div class="popup-container" id="form-popup-container">
+        <div class="form-popup">
+            <!-- X Close Button -->
+            <button class="close-button" onclick="closeSubmitPopUp()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="2vh">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <p class="form-title">Submit Your Game</p>
+
+            <form id="form-add-game" onsubmit="submitGame(event)">
+                <div class="form-group">
+                    <input required type="text" class="form-control" id="inp-auth-name" placeholder="Owner name" name="author-name">
+                </div>
+
+                <div class="form-group">
+                    <input required type="text" class="form-control" id="inp-game-name" placeholder="Game name" name="game-name">
+                </div>
+
+                <div class="form-group">
+                    <input required type="text" class="form-control" id="inp-game-desc" placeholder="Description" name="game-description">
+                </div>
+
+                <div class="form-group">
+                    <input required type="text" class="form-control" id="inp-game-info" placeholder="More Description" name="game-info">
+                </div>
+
+                <div class="form-group">
+                    <input required type="text" class="form-control" id="inp-game-link" placeholder="Link URL" name="game-link">
+                </div>
+
+                <div class="submit-button-container">
+                    <button type="submit" class="submit-button">
+                        Submit
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
+    <!-- Play pop-up -->
+    <div class="popup-container" id="play-popup-container">
+        <div class="play-popup">
+            <!-- X Close Button -->
+            <button class="close-button" onclick="closePlayPopUp()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="2vh">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div class="popup-title" id="popup-title">
+                Adam
+                <span class="popup-author">
+                    Made by: <span>Adam</span>
+                </span>
+            </div>
+
+            <div class="popup-desc-container" id="popup-desc">
+                Info:
+                <span class="popup-desc">
+                    Game Description/Info
+                </span>
+            </div>
+
+            <div class="continue-button-container">
+                <button type="button" class="continue-button" id="continue-button">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-credits">
+        Made by <span>Adam Hassan Alattar</span> for <span>KC | Year 2023</span>'s Final Project
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 </html>
